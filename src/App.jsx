@@ -115,7 +115,7 @@ function App() {
   return (
     <>
     <Toaster position="top-right" />
-    <div className="relative flex flex-col min-h-screen px-5">
+    <div className=" flex flex-col min-h-screen px-5">
       <div className='flex-grow items-center flex'>
         <div className="container mx-auto flex flex-col gap-3 items-center">
           <h2 className='font-bold text-4xl text-sky-900 text-center'>Tính GPA TLU</h2>
@@ -189,7 +189,11 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="text-center py-3">
+        <p className='text-sm font-bold'>2025. LTD 🩶</p>
+      </div>
     </div>
+    
     </>
   );
 }
