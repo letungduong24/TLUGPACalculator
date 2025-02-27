@@ -64,7 +64,7 @@ function App() {
         toast.error('Web trường sập rồi không lấy thông tin để tính toán được!!', {duration:3000})
       }
       else{
-        toast.error('Lỗi không xác định!!', {duration:3000})
+        toast.error('Tài khoản hoặc mật khẩu không đúng!!!', {duration:3000})
       }
     } finally{
       setLoading(false)
