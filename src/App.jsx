@@ -47,6 +47,12 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(username == '' || password == ''){
+      toast.error('Vui lòng nhập đầy đủ thông tin!', {
+        duration:3000
+      })
+      return
+    }
     const formData = new URLSearchParams();
     formData.append("client_id", "education_client");
     formData.append("grant_type", "password");
