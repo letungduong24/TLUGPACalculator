@@ -184,7 +184,7 @@ function App() {
             </div>
             </>
           ) : (
-            <p className='w-full text-center'>Chưa có dữ liệu, vui lòng đăng nhập!</p>
+            <p className='w-full text-center'>Chưa có dữ liệu, vui lòng đăng nhập bằng tài khoản sinhvien.tlu.edu.vn</p>
           )}    
           </div>
         </div>
