@@ -10,34 +10,27 @@ function App() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [data, setData] = useState([]);
-  const [token, setToken] = useState('');
   const [loading, setLoading] = useState(false)
+  const [gpa, setGPA] = useState({})
 
-  useEffect(() => {
-    if (token) {
-      fetchData();
-    }
-  }, []); 
-
-  useEffect(() => {
-    if (data.length > 0) {
-      gpaBySemester();
-    }
-  }, []);
-  
-
-  const fetchData = async () => {
+  const fetchData = async (token) => {
+    setLoading(true)
     try {
       const response = await api.get("/api/studentsubjectmark/getListMarkDetailStudent", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setData(response.data);
+      setGPA({totalGPA: calculateGPA(response.data), gpaBySemester: gpaBySemester(response.data)})
+      toast.success('Tính GPA thành công!', {
+        duration:3000
+      })
       console.log(response.data);
     } catch (err) {
       if(err.message === 'Network Error'){
         toast.error('Web trường sập rồi không lấy thông tin để tính toán được!!', {duration:3000})
       }
       else{
+        console.log(err)
         toast.error('Lỗi không xác định!!', {duration:3000})
       }
     } finally{
@@ -64,7 +57,7 @@ function App() {
       const response = await api.post("/oauth/token", formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
-      setToken(response.data.access_token); 
+      await fetchData(response.data.access_token)
     } catch (err) {
       if(err.message === 'Network Error'){
         toast.error('Web trường sập rồi không lấy thông tin để tính toán được!!', {duration:3000})
@@ -107,7 +100,7 @@ function App() {
     return 0;
   };
   
-  const gpaBySemester = () => {
+  const gpaBySemester = (data) => {
     let gpaBySemester = []
     const groupedSemester = _.groupBy(data, 'semester.semesterCode')
     Object.entries(groupedSemester).forEach(([semesterCode, subjects]) => {
@@ -170,7 +163,7 @@ function App() {
                 </div>
                 <div className=" mb-3 grid grid-cols-2 py-3 gap-4">
                   <dt className="font-medium text-gray-900">GPA tổng</dt>
-                  <dd className="text-gray-700 ">{calculateGPA(data)}</dd>
+                  <dd className="text-gray-700 ">{gpa.totalGPA}</dd>
                 </div>
               </dl>
             </div>
@@ -180,7 +173,7 @@ function App() {
                   <dt className="font-medium text-gray-900">Kì</dt>
                   <dt className="font-medium text-gray-900">GPA</dt>
                 </div>
-                {gpaBySemester().map((semester)=> (
+                {gpa.gpaBySemester.map((semester)=> (
                 <div className="grid grid-cols-2 py-3 gap-4">
                   <dt className="font-medium text-gray-900">{semester.semesterCode}</dt>
                   <dd className="text-gray-700 ">{semester.gpa}</dd>
