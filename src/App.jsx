@@ -117,7 +117,7 @@ function App() {
     <div className=" flex flex-col min-h-screen px-5">
       <div className='flex-grow items-center flex'>
         <div className="container mx-auto flex flex-col gap-3 items-center">
-          <h2 className='font-bold text-4xl text-sky-900 text-center'>Tính GPA TLU</h2>
+          <h2 className='font-bold text-4xl text-sky-900 text-center mt-5 sm:mt-0'>Tính GPA TLU</h2>
           <h2 className=' font-bold text-sky-900 text-center italic'>Trang web không lưu lại thông tin & tài khoản của người dùng!</h2>
           <div className="w-full md:w-2/3 lg:w-1/2 flex items-center justify-center mt-5 md:mt-0">
             <form onSubmit={handleSubmit} className="w-full p-4 flex flex-col justify-center shadow-lg rounded-3xl">
